@@ -8,7 +8,7 @@ print("servidor esperando --> {}".format(socket.gethostname()))
 con, addr = s.accept()
 
 print(addr, "se conecto")
-filename = input(str"nombre del archivo a enviar: ")
+filename = input("nombre del archivo a enviar: ")
 file = open(filename, 'rb')
 fileContent = file.read(1024)
 con.send(fileContent)

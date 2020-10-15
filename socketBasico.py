@@ -6,7 +6,7 @@ import socket
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	#se crea un socket TCP
-s.bind((socket.gethostname(), 8333))
+s.bind((socket.gethostname(), 64444))
 	#se elige el puerto
 s.listen()
 

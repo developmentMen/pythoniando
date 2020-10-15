@@ -2,9 +2,9 @@ import socket
 
 s = socket.socket()
 
-s.bind((socket.gethostname(), 64444))
-s.listen(1)
-print("servidor esperando --> {}".format(socket.gethostname()))
+s.bind((socket.gethostname(), 6333))
+s.listen(3)
+print("servidor esperando --> {}".format(socket.gethostbyname(socket.gethostname())))
 con, addr = s.accept()
 
 print(addr, "se conecto")

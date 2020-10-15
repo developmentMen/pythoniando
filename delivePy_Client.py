@@ -4,7 +4,7 @@ s = socket.socket()
 
 host = input("ingrese la ip del servidor -->")
 
-s.connect((host, 64444))
+s.connect((host, 6333))
 print("connected...")
 
 filename = input("nombre para el nuevo archivo")

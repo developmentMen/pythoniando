@@ -7,7 +7,9 @@ host = input("ingrese la ip del servidor -->")
 s.connect((host, 6333))
 print("connected...")
 
-filename = input("nombre para el nuevo archivo -->")
+datos = s.recv(1024)
+
+filename = datos.decode()
 file = open(filename, 'wb')
 fileData = s.recv(1024)
 file.write(fileData)

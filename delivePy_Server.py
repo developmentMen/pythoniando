@@ -1,41 +1,55 @@
 import os
 import socket 
 
-s = socket.socket()
+def conectar(s):
+	con, addr = s.accept()
+	print(addr, "se conecto")
 
-s.bind((socket.gethostname(), 6333))
-s.listen(3)
-print("servidor esperando --> {}".format(socket.gethostbyname(socket.gethostname())))
-con, addr = s.accept()
+	return con
 
-#	se conecta
+def menu():
+	cont = 1
+	dirs = []
 
-print(addr, "se conecto")
+	print("\nElegir archivos:\n")
+	for e in os.scandir(os.getcwd()):
+		dirs.append(e.name)
+		print("	[{}] - {}".format(cont, e.name))
+		cont += 1
+	print("\n\t\t\tpress (q) for quit.\n")
 
-cont = 1
-dirs = []
+	eleccion = input("Archivo a enviar --> ")
+	filename = dirs[int(eleccion)-1]
 
-print("\nElegir archivos:\n")
+	return filename
 
-for e in os.scandir(os.getcwd()):
-	dirs.append(e.name)
-	print("	[{}] - {}".format(cont, e.name))
-	cont += 1
+def enviar(con, filename):
+	con.send(filename.encode())
 
-print("\n\t\t\tpress (q) for quit.\n")
+	file = open(filename, 'rb')
+	fileContent = file.read(1024)
+	con.send(fileContent)
+	file.close()
+	print("archivo enviado con etsito")
 
-filename = dirs[int(input("Archivo a enviar: "))-1]
+def cerrar(con, s):
+	con.close()
+	s.close()
 
-#	archivo elegido
+def main():
+	s = socket.socket()
 
-con.send(filename.encode())
+	s.bind((socket.gethostname(), 6333))
+	s.listen(3)
+	print("servidor esperando --> {}".format(socket.gethostbyname(socket.gethostname())))
+	con = conectar(s)
+	try:
+		while True:
+			enviar(con, menu())
+	except :
+		pass
+	
+	cerrar(con, s)
 
-
-file = open(filename, 'rb')
-fileContent = file.read(1024)
-con.send(fileContent)
-file.close()
-print("archivo enviado con etsito")
-
-con.close()
-s.close()
+if __name__=='__main__':
+	main()

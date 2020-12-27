@@ -31,7 +31,7 @@ def enviar(con, filename):
 		strng = file.readline(512)
 		if not strng:
 			break
-		client_socket.send(strng)
+		con.send(strng)
 	file.close()
 	print("archivo enviado con exito")
 

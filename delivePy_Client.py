@@ -2,11 +2,14 @@ import socket
 
 def recibir(s):
 	datos = s.recv(1024)
-
 	filename = datos.decode()
+
 	file = open(filename, 'wb')
-	fileData = s.recv(1024)
-	file.write(fileData)
+	while True:
+		fileData = s.recv(512)
+		if not fileData:
+			break
+		file.write(fileData)
 	file.close()
 	print('archivo recibido.')
 

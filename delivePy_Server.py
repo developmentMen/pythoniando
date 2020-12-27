@@ -26,11 +26,26 @@ def menu():
 def enviar(con, filename):
 	con.send(filename.encode())
 
+	file = open(filename,'rb')
+	while True:
+		strng = file.readline(512)
+		if not strng:
+			break
+		client_socket.send(strng)
+	file.close()
+	print("archivo enviado con exito")
+
+
+'''
+def enviar(con, filename):
+	con.send(filename.encode())
+
 	file = open(filename, 'rb')
 	fileContent = file.read(1024)
 	con.send(fileContent)
 	file.close()
 	print("archivo enviado con etsito")
+'''
 
 def cerrar(con, s):
 	con.close()
@@ -40,7 +55,7 @@ def main():
 	s = socket.socket()
 
 	s.bind((socket.gethostname(), 6333))
-	s.listen(3)
+	s.listen()
 	print("servidor esperando --> {}".format(socket.gethostbyname(socket.gethostname())))
 	con = conectar(s)
 	try:

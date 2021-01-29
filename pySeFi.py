@@ -5,28 +5,28 @@ programa simple para enviar archivos
 """
 import socket
 import sys
+import time
 
-def enviar(sock, filename):
-	sock.send(filename.encode())
-
-	file = open(filename,'rb')
+def enviar(s, filename):
+	s.send(filename.encode())
+	time.sleep(1)
+	file = open(filename, 'rb')
 	while True:
 		strng = file.readline(512)
 		if not strng:
 			break
-		sock.send(strng)
+		s.send(strng)
 	file.close()
 	print("archivo enviado con exito")
 
 def main():
 	s = socket.socket()
-
 	s.connect((sys.argv[1], 6333))
 	#try:
-	while True:
-		enviar(s, sys.argv[2])
+	enviar(s, sys.argv[2])
 	#except :
-	#	pass
+		#print("an error was ocurred")
+		#pass
 
 	s.close()
 

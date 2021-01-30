@@ -7,6 +7,10 @@ import socket
 import sys
 import time
 
+def banner():
+	ban="  ___      ___      ___ _ \n | _ \_  _/ __| ___| __(_)\n |  _/ || \__ \/ -_) _|| |\n |_|  \_, |___/\___|_| |_|\n      |__/                "
+	return ban
+
 def enviar(s, filename):
 	s.send(filename.encode())
 	time.sleep(1)
@@ -20,6 +24,7 @@ def enviar(s, filename):
 	print("archivo enviado con exito")
 
 def main():
+	print(banner()+'\n\t\t\tby developmentMen\n')
 	s = socket.socket()
 	s.connect((sys.argv[1], 6333))
 	#try:
@@ -32,4 +37,8 @@ def main():
 
 
 if __name__=='__main__':
-	main()
+	try:
+	 	main()
+	except:
+	 	ModoDeUso = "uso: \t PySeFi [ip-server] [archivo]"
+	 	print (ModoDeUso)

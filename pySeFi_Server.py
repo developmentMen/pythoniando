@@ -11,7 +11,6 @@ def conectar(s):
 
 	return con
 
-
 def recibir(con):
 	datos = con.recv(1024)
 	filename = datos.decode()
@@ -30,6 +29,8 @@ def cerrar(con, s):
 	s.close()
 
 def main():
+	print(banner()+'\n\t\tby developmentMen')
+
 	s = socket.socket()
 
 	s.bind((socket.gethostname(), 6333))
@@ -42,6 +43,10 @@ def main():
 		#pass
 	
 	cerrar(con, s)
+
+def banner():
+	ban="  ___      ___      ___ _ \n | _ \_  _/ __| ___| __(_)\n |  _/ || \__ \/ -_) _|| |\n |_|  \_, |___/\___|_| |_|\n      |__/                "
+	return ban
 
 if __name__=='__main__':
 	main()

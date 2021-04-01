@@ -1,5 +1,8 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import os
-import socket 
+import socket
 
 def conectar(s):
 	con, addr = s.accept()
@@ -63,7 +66,7 @@ def main():
 			enviar(con, menu())
 	except :
 		pass
-	
+
 	cerrar(con, s)
 
 if __name__=='__main__':
